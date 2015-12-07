@@ -24,7 +24,7 @@ Vagrant.configure(2) do |config|
   # Ceph admin definition
   config.vm.define "ceph-admin" do |admin|
       admin.vm.hostname = "ceph-admin"
-      admin.vm.network :private_network, ip: "172.16.1.100", virtualbox__intnet: "pxc_network"
+      admin.vm.network :private_network, ip: "172.16.1.100", virtualbox__intnet: "front_network"
 
       admin.vm.provider :virtualbox do |vb|
         vb.memory = 1024
@@ -45,8 +45,8 @@ Vagrant.configure(2) do |config|
 
      config.vm.define "ceph-osd-#{i}" do |osd|
          osd.vm.hostname = "ceph-osd-#{i}"
-         osd.vm.network :private_network, ip: "172.16.1.#{i+110}", virtualbox__intnet: "pxc_network"
-         #osd.vm.network :private_network, virtualbox__intnet: "pxc_network"
+         osd.vm.network :private_network, ip: "172.16.1.#{i+110}", virtualbox__intnet: "front_network"
+         osd.vm.network :private_network, ip: "172.16.2.#{i+110}", virtualbox__intnet: "storage_network"
 
          osd.vm.provider :virtualbox do |vb|
            vb.memory = osd_memory
