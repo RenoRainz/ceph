@@ -45,8 +45,8 @@ Vagrant.configure(2) do |config|
 
      config.vm.define "ceph-osd-#{i}" do |osd|
          osd.vm.hostname = "ceph-osd-#{i}"
-         osd.vm.network :private_network, ip: "172.16.0.#{i+100}", virtualbox__intnet: "pxc_network"
-         osd.vm.network :private_network, virtualbox__intnet: "pxc_network"
+         osd.vm.network :private_network, ip: "172.16.1.#{i+100}", virtualbox__intnet: "pxc_network"
+         #osd.vm.network :private_network, virtualbox__intnet: "pxc_network"
 
          osd.vm.provider :virtualbox do |vb|
            vb.memory = osd_memory
