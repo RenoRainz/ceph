@@ -22,7 +22,7 @@ Vagrant.configure(2) do |config|
   osd_cpus = 1
 
   # Ceph admin definition
-  config.vm.define :admin do |admin|
+  config.vm.define "ceph-admin" do |admin|
       admin.vm.hostname = "ceph-admin"
       admin.vm.network :private_network, ip: "172.16.1.100", virtualbox__intnet: "pxc_network"
 
