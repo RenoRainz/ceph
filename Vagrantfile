@@ -17,6 +17,8 @@ Vagrant.configure(2) do |config|
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "ubuntu/trusty64"
   num_osd = 3
+  disk_by_osd = 3
+  disk_size = 8
   osd_gui = false
   osd_memory = 1024
   osd_cpus = 1
@@ -51,6 +53,15 @@ Vagrant.configure(2) do |config|
          osd.vm.provider :virtualbox do |vb|
            vb.memory = osd_memory
            vb.cpus = osd_cpus
+         end
+
+
+         (1..disk_by_osd).each do |d|
+           file_to_disk = "/home/renaud/VirtualBox VMs/ceph-osd-#{i}/osd-#{d}.vmdk"
+           config.vm.provider "virtualbox" do | v |
+             v.customize ['createhd', '--filename', file_to_disk, '--size', 8 * 1024]
+             v.customize ['storageattach', :id, '--storagectl', 'SATAController', '--port', "#{d}", '--device', 0, '--type', 'hdd', '--medium', file_to_disk]
+           end
          end
 
          # /etc/hosts configuration
