@@ -33,14 +33,10 @@ Vagrant.configure(2) do |config|
         vb.memory = 1024
         vb.cpus = 1
       end
+      
+      # Bootstrapping
+      config.vm.provision :shell, path: "bootstrap-ceph-admin.bash"
 
-      # Setup of /etc/hosts
-      (1..num_osd).each do |j|
-        admin.vm.provision :hosts do |provisioner|
-            provisioner.add_host '172.16.1.100', ['ceph-admin.internal', 'ceph-admin']
-            provisioner.add_host "172.16.1.#{j+110}", ["ceph-osd-#{j}.internal", "ceph-osd-#{j}"]
-        end
-      end
   end
 
   # OSD node definition
