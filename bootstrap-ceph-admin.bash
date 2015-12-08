@@ -50,7 +50,8 @@ chown -R cephuser:cephuser /home/cephuser
 chmod 700 /home/cephuser/.ssh/
 chmod 600 /home/cephuser/.ssh/id*
 
-echo "172.16.1.111 ceph-osd-1.internal ceph-osd-1
+echo "172.16.1.100 ceph-admin.internal ceph-admin
+172.16.1.111 ceph-osd-1.internal ceph-osd-1
 172.16.1.112 ceph-osd-2.internal ceph-osd-2
 172.16.1.113 ceph-osd-3.internal ceph-osd-3
 172.16.2.111 ceph-osd-1.storage
@@ -60,7 +61,14 @@ echo "172.16.1.111 ceph-osd-1.internal ceph-osd-1
 
 wget -q -O- 'https://download.ceph.com/keys/release.asc' | sudo apt-key add -
 echo deb http://download.ceph.com/debian-hammer/ $(lsb_release -sc) main | sudo tee /etc/apt/sources.list.d/ceph.list
-apt-get update && apt-get install -y ntp ntpdate ntp-doc xfsprogs
+apt-get update && apt-get install -y ntp ntpdate ntp-doc xfsprogs git python-virtualenv
 /etc/init.d/apparmor stop
 /etc/init.d/apparmor teardown
 apt-get remove -y apparmor
+
+cd /home/cepuser/
+git clone https://github.com/ceph/ceph-deploy.git
+cd ceph-deploy
+./bootstrap
+mkdir cluster_conf
+chown -R cephuser:cephuser /home/cephuser
