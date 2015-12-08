@@ -35,7 +35,20 @@ eaBbGmdpfwN4tWDsS+jhCiFmN4h8DzZwDp/ARHQup+BuzsjUYIrlFZg=
 
 echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCoc+s56EuX7DXURRCbGiezaynKRS8MRWogkSMvxF4Z6M+ebRGJTFkoGxlEGeBH5Hf+yTfM/QIywIj/v5I8Pi7QNZDE2ttIucnloyFnMHHZVTF7al/JjLqYAaerYpQ9yCuBoFjEKdE4m04mCSrg3Tsk7t6eWBniLqTdCDr4ZiuAvf4fSPHca+3Jp8p2all3Lmny/doYxDhpucv3rQ3UAx+IH07rLJU4eJSMWqwGRz0NZY1qCWByl857dP9EFMiXU1g8OtDnAZo7V107V6DCc6HVBdiGLz5Ydtrbq5B2SHxgzKTgJEmfehcZXqNeos0chf4056ocCGg1Cvk/xWfo8mlZ cephuser@ceph-admin" > /home/cephuser/.ssh/id_rsa.pub
 
+echo "Host ceph-osd-1
+Hostname ceph-osd-1
+User ceph
+Host ceph-osd-2
+Hostname ceph-osd-2
+User ceph
+Host ceph-osd-3
+Hostname ceph-osd-3
+User ceph
+" >/home/cephuser/.ssh/config
+
 chown -R cephuser:cephuser /home/cephuser
+chmod 700 /home/cephuser/.ssh/
+chmod 600 /home/cephuser/.ssh/id*
 
 echo "172.16.1.111 ceph-osd-1.internal ceph-osd-1
 172.16.1.112 ceph-osd-2.internal ceph-osd-2
@@ -43,8 +56,11 @@ echo "172.16.1.111 ceph-osd-1.internal ceph-osd-1
 172.16.2.111 ceph-osd-1.storage
 172.16.2.112 ceph-osd-2.storage
 172.16.2.113 ceph-osd-3.storage
-" > /etc/hosts
+" >> /etc/hosts
 
 wget -q -O- 'https://download.ceph.com/keys/release.asc' | sudo apt-key add -
 echo deb http://download.ceph.com/debian-hammer/ $(lsb_release -sc) main | sudo tee /etc/apt/sources.list.d/ceph.list
-apt-get update && apt-get -y upgrade && apt-get install -y ceph-deploy
+apt-get update && apt-get -y upgrade && apt-get install -y ceph-deploy ntp ntpdate
+/etc/init.d/apparmor stop
+/etc/init.d/apparmor teardown
+apt-get remove -y apparmor
