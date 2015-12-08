@@ -35,7 +35,7 @@ eaBbGmdpfwN4tWDsS+jhCiFmN4h8DzZwDp/ARHQup+BuzsjUYIrlFZg=
 
 echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCoc+s56EuX7DXURRCbGiezaynKRS8MRWogkSMvxF4Z6M+ebRGJTFkoGxlEGeBH5Hf+yTfM/QIywIj/v5I8Pi7QNZDE2ttIucnloyFnMHHZVTF7al/JjLqYAaerYpQ9yCuBoFjEKdE4m04mCSrg3Tsk7t6eWBniLqTdCDr4ZiuAvf4fSPHca+3Jp8p2all3Lmny/doYxDhpucv3rQ3UAx+IH07rLJU4eJSMWqwGRz0NZY1qCWByl857dP9EFMiXU1g8OtDnAZo7V107V6DCc6HVBdiGLz5Ydtrbq5B2SHxgzKTgJEmfehcZXqNeos0chf4056ocCGg1Cvk/xWfo8mlZ cephuser@ceph-admin" > /home/cephuser/.ssh/id_rsa.pub
 
-chown -R cephuser:cpehuser /home/cephuser
+chown -R cephuser:cephuser /home/cephuser
 
 echo "172.16.1.111 ceph-osd-1.internal ceph-osd-1
 172.16.1.112 ceph-osd-2.internal ceph-osd-2
