@@ -51,6 +51,7 @@ chmod 700 /home/cephuser/.ssh/
 chmod 600 /home/cephuser/.ssh/id*
 
 echo "172.16.1.100 ceph-admin.internal ceph-admin
+172.16.1.101 ceph-client.internal ceph-client
 172.16.1.111 ceph-osd-1.internal ceph-osd-1
 172.16.1.112 ceph-osd-2.internal ceph-osd-2
 172.16.1.113 ceph-osd-3.internal ceph-osd-3
