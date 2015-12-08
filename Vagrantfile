@@ -33,7 +33,7 @@ Vagrant.configure(2) do |config|
         vb.cpus = 1
       end
 
-      # Setup of /etc/hosts of salt master
+      # Setup of /etc/hosts
       (1..num_osd).each do |j|
         admin.vm.provision :hosts do |provisioner|
             provisioner.add_host '172.16.1.100', ['ceph-admin.internal', 'ceph-admin']
@@ -55,14 +55,14 @@ Vagrant.configure(2) do |config|
            vb.cpus = osd_cpus
          end
 
-
+         # Add OSD disks
          (1..disk_by_osd).each do |d|
            file_to_disk = "/home/renaud/VirtualBox VMs/ceph-osd-#{i}/osd-#{d}.vmdk"
-           config.vm.provider "virtualbox" do | v |
+           config.vm.provider "virtualbox" do | vb |
               unless File.exist?(file_to_disk)
-                v.customize ['createhd', '--filename', file_to_disk, '--size', osd_disk_size * 1024]
+                vb.customize ['createhd', '--filename', file_to_disk, '--size', osd_disk_size * 1024]
               end
-             v.customize ['storageattach', :id, '--storagectl', 'SATAController', '--port', "#{d}", '--device', 0, '--type', 'hdd', '--medium', file_to_disk]
+             vb.customize ['storageattach', :id, '--storagectl', 'SATAController', '--port', "#{d}", '--device', 0, '--type', 'hdd', '--medium', file_to_disk]
            end
          end
 
@@ -71,6 +71,9 @@ Vagrant.configure(2) do |config|
            provisioner.add_host '172.16.1.100', ['ceph-admin.internal', 'ceph-admin']
            provisioner.add_host "172.16.1.#{i+110}", ["ceph-osd-#{i}.internal", "ceph-osd-#{i}"]
          end
+
+         # Bootstrapping
+         config.vm.provision :shell, path: "bootstrap.bash"
 
      end
   end
