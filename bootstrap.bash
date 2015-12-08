@@ -11,8 +11,6 @@ echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCoc+s56EuX7DXURRCbGiezaynKRS8MRWogkS
 chmod 600 /home/ceph/.ssh/authorized_keys
 chown -R ceph:ceph /home/ceph/
 
-wget -q -O- 'https://download.ceph.com/keys/release.asc' | sudo apt-key add -
-echo deb http://download.ceph.com/debian-hammer/ $(lsb_release -sc) main | sudo tee /etc/apt/sources.list.d/ceph.list
 apt-get update && apt-get install -y ntp ntpdate ntp-doc xfsprogs
 /etc/init.d/apparmor stop
 /etc/init.d/apparmor teardown
@@ -29,3 +27,8 @@ mkfs.xfs /dev/sdc1
 parted -s /dev/sdd mklabel gpt
 parted -s /dev/sdd mkpart primary xfs 0% 100%
 mkfs.xfs /dev/sdd1
+
+mkdir -p /var/local/osd0
+mkdir -p /var/local/osd1
+mount /dev/sdc1 /var/local/osd0
+mount /dev/sdd1 /var/local/osd1
