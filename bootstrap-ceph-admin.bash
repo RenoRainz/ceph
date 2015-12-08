@@ -60,7 +60,7 @@ echo "172.16.1.111 ceph-osd-1.internal ceph-osd-1
 
 wget -q -O- 'https://download.ceph.com/keys/release.asc' | sudo apt-key add -
 echo deb http://download.ceph.com/debian-hammer/ $(lsb_release -sc) main | sudo tee /etc/apt/sources.list.d/ceph.list
-apt-get update && apt-get -y upgrade && apt-get install -y ceph-deploy ntp ntpdate
+apt-get update && apt-get install -y ntp ntpdate ntp-doc xfsprogs
 /etc/init.d/apparmor stop
 /etc/init.d/apparmor teardown
 apt-get remove -y apparmor
