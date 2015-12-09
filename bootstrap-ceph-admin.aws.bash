@@ -1,3 +1,4 @@
+#!/bin/bash
 useradd -d /home/cephuser -s /bin/bash -m cephuser
 echo "cephuser:cephuser" | chpasswd
 echo "cephuser ALL = (root) NOPASSWD:ALL" | tee /etc/sudoers.d/cephuser
