@@ -30,5 +30,7 @@ mkfs.xfs /dev/sdd1
 
 mkdir -p /var/local/osd0
 mkdir -p /var/local/osd1
-mount /dev/sdc1 /var/local/osd0
-mount /dev/sdd1 /var/local/osd1
+echo "/dev/sdc1	/var/local/osd0	xfs	defaults	0 0" >> /etc/fstab
+echo "/dev/sdd1	/var/local/osd1	xfs	defaults	0 0" >> /etc/fstab
+mount /var/local/osd0
+mount /var/local/osd1
