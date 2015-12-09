@@ -1,1 +1,3 @@
 .vagrant
+cluster_conf
+*.cap
