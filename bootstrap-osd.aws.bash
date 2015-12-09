@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 useradd -d /home/ceph -s /bin/bash -m ceph
 echo "ceph:ceph" | chpasswd
