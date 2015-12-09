@@ -16,21 +16,38 @@ apt-get update && apt-get install -y ntp ntpdate ntp-doc xfsprogs
 /etc/init.d/apparmor teardown
 apt-get remove -y apparmor
 
-parted -s /dev/xdvb mklabel gpt
-parted -s /dev/xdvb mkpart primary 0% 50%
-parted -s /dev/xdvb mkpart primary 51% 100%
+parted -s /dev/xvdb mklabel gpt
+parted -s /dev/xvdb mkpart primary 0% 50%
+parted -s /dev/xvdb mkpart primary 51% 100%
 
-parted -s /dev/xdvc mklabel gpt
-parted -s /dev/xdvc mkpart primary xfs 0% 100%
-mkfs.xfs /dev/xdvc1
+parted -s /dev/xvdc mklabel gpt
+parted -s /dev/xvdc mkpart primary xfs 0% 100%
+mkfs.xfs /dev/xvdc1
 
-parted -s /dev/xdvd mklabel gpt
-parted -s /dev/xdvd mkpart primary xfs 0% 100%
-mkfs.xfs /dev/xdvd1
+parted -s /dev/xvdd mklabel gpt
+parted -s /dev/xvdd mkpart primary xfs 0% 100%
+mkfs.xfs /dev/xvdd1
 
 mkdir -p /var/local/osd0
 mkdir -p /var/local/osd1
-echo "/dev/xdvc1	/var/local/osd0	xfs	defaults	0 0" >> /etc/fstab
-echo "/dev/xdvd1	/var/local/osd1	xfs	defaults	0 0" >> /etc/fstab
+echo "/dev/xvdc1	/var/local/osd0	xfs	defaults	0 0" >> /etc/fstab
+echo "/dev/xvdd1	/var/local/osd1	xfs	defaults	0 0" >> /etc/fstab
 mount /var/local/osd0
 mount /var/local/osd1
+
+# Setting hostname
+ip=$(ip a s dev eth0 | grep inet | grep -v inet6  | awk '{print $2}')
+case "$ip" in
+  "10.200.1.11/24")
+    hostname ceph-osd-1
+    echo "ceph-osd-1" > /etc/hostname
+    ;;
+  "10.200.1.12/24")
+    hostname ceph-osd-2
+    echo "ceph-osd-2" > /etc/hostname
+    ;;
+  "10.200.1.13/24")
+    hostname ceph-osd-3
+    echo "ceph-osd-3" > /etc/hostname
+    ;;
+esac
