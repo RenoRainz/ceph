@@ -51,14 +51,32 @@ case "$ip" in
   "10.200.1.11/24")
     hostname ceph-osd-1
     echo "ceph-osd-1" > /etc/hostname
+    echo "auto eth1
+iface eth1 inet static
+address 10.200.3.11
+netmask 255.255.255.0
+" >/etc/network/interfaces.d/eth1.config
+    ifup eth1
     ;;
   "10.200.1.12/24")
     hostname ceph-osd-2
     echo "ceph-osd-2" > /etc/hostname
+    echo "auto eth1
+iface eth1 inet static
+address 10.200.3.12
+netmask 255.255.255.0
+" >/etc/network/interfaces.d/eth1.config
+    ifup eth1
     ;;
   "10.200.1.13/24")
     hostname ceph-osd-3
     echo "ceph-osd-3" > /etc/hostname
+    echo "auto eth1
+iface eth1 inet static
+address 10.200.3.13
+netmask 255.255.255.0
+" >/etc/network/interfaces.d/eth1.config
+    ifup eth1
     ;;
 esac
 
