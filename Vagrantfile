@@ -30,7 +30,7 @@ Vagrant.configure(2) do |config|
       admin.vm.network :private_network, ip: "172.16.1.100", virtualbox__intnet: "front_network"
 
       admin.vm.provider :virtualbox do |vb|
-        vb.memory = 1024
+        vb.memory = 512
         vb.cpus = 1
       end
 
@@ -50,7 +50,7 @@ Vagrant.configure(2) do |config|
       end
 
       # Bootstrapping
-      #config.vm.provision :shell, path: "bootstrap-ceph-admin.bash"
+      config.vm.provision :shell, path: "bootstrap-client.bash"
 
   end
 
