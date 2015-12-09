@@ -1,5 +1,6 @@
 #!/bin/bash
 
+echo "boostrap : user creation"
 useradd -d /home/ceph -s /bin/bash -m ceph
 echo "ceph:ceph" | chpasswd
 echo "ceph ALL = (root) NOPASSWD:ALL" | tee /etc/sudoers.d/ceph
@@ -16,11 +17,13 @@ https_proxy=http://10.100.1.200:3128" > /root/.wgetrc
 
 chown -R ceph:ceph /home/ceph/
 
+echo "boostrap : package installation"
 apt-get update && apt-get install -y ntp ntpdate ntp-doc xfsprogs
 /etc/init.d/apparmor stop
 /etc/init.d/apparmor teardown
 apt-get remove -y apparmor
 
+echo "boostrap : disk configuration"
 parted -s /dev/xvdb mklabel gpt
 parted -s /dev/xvdb mkpart primary 0% 50%
 parted -s /dev/xvdb mkpart primary 51% 100%
@@ -41,6 +44,7 @@ mount /var/local/osd0
 mount /var/local/osd1
 
 # Setting hostname
+echo "boostrap : setting hostname"
 ip=$(ip a s dev eth0 | grep inet | grep -v inet6  | awk '{print $2}')
 case "$ip" in
   "10.200.1.11/24")
