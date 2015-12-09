@@ -65,6 +65,9 @@ echo "172.16.1.100 ceph-admin.internal ceph-admin
 172.16.2.113 ceph-osd-3.storage
 " >> /etc/hosts
 
+echo "ceph-admin" >/etc/hostname
+hostname ceph-admin
+
 wget -q -O- 'https://download.ceph.com/keys/release.asc' | sudo apt-key add -
 echo deb http://download.ceph.com/debian-hammer/ $(lsb_release -sc) main | sudo tee /etc/apt/sources.list.d/ceph.list
 apt-get update && apt-get install -y ntp ntpdate ntp-doc xfsprogs git python-virtualenv
