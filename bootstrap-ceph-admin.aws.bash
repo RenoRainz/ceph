@@ -56,14 +56,14 @@ https_proxy=http://10.100.1.200:3128" > /home/cephuser/.wgetrc
 echo "http_proxy=http://10.100.1.200:3128
 https_proxy=http://10.100.1.200:3128" > /root/.wgetrc
 
-echo "172.16.1.100 ceph-admin.internal ceph-admin
-172.16.1.101 ceph-client.internal ceph-client
-172.16.1.111 ceph-osd-1.internal ceph-osd-1
-172.16.1.112 ceph-osd-2.internal ceph-osd-2
-172.16.1.113 ceph-osd-3.internal ceph-osd-3
-172.16.2.111 ceph-osd-1.storage
-172.16.2.112 ceph-osd-2.storage
-172.16.2.113 ceph-osd-3.storage
+echo "10.200.1.10 ceph-admin.internal ceph-admin
+10.200.1.11 ceph-client.internal ceph-client
+10.200.1.11 ceph-osd-1.internal ceph-osd-1
+10.200.1.12 ceph-osd-2.internal ceph-osd-2
+10.200.1.13 ceph-osd-3.internal ceph-osd-3
+10.200.3.11 ceph-osd-1.storage
+10.200.3.12 ceph-osd-2.storage
+10.200.3.13 ceph-osd-3.storage
 " >> /etc/hosts
 
 echo "ceph-admin" >/etc/hostname
