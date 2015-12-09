@@ -61,3 +61,5 @@ case "$ip" in
     echo "ceph-osd-3" > /etc/hostname
     ;;
 esac
+
+touch /tmp/bootstrap.done

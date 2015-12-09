@@ -83,3 +83,5 @@ cd ceph-deploy
 ./bootstrap
 mkdir cluster_conf
 chown -R cephuser:cephuser /home/cephuser
+
+touch /tmp/bootstrap.done
