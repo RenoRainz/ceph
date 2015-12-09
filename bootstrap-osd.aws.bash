@@ -18,6 +18,7 @@ https_proxy=http://10.100.1.200:3128" > /root/.wgetrc
 chown -R ceph:ceph /home/ceph/
 
 echo "boostrap : package installation"
+export http_proxy=http://10.100.1.200:3128
 apt-get update && apt-get install -y ntp ntpdate ntp-doc xfsprogs
 /etc/init.d/apparmor stop
 /etc/init.d/apparmor teardown
