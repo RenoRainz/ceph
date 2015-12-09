@@ -56,7 +56,7 @@ case "$ip" in
 iface eth1 inet static
 address 10.200.3.11
 netmask 255.255.255.0
-" >/etc/network/interfaces.d/eth1.config
+" >/etc/network/interfaces.d/eth1.cfg
     ifup eth1
     ;;
   "10.200.1.12/24")
@@ -66,7 +66,7 @@ netmask 255.255.255.0
 iface eth1 inet static
 address 10.200.3.12
 netmask 255.255.255.0
-" >/etc/network/interfaces.d/eth1.config
+" >/etc/network/interfaces.d/eth1.cfg
     ifup eth1
     ;;
   "10.200.1.13/24")
@@ -76,7 +76,7 @@ netmask 255.255.255.0
 iface eth1 inet static
 address 10.200.3.13
 netmask 255.255.255.0
-" >/etc/network/interfaces.d/eth1.config
+" >/etc/network/interfaces.d/eth1.cfg
     ifup eth1
     ;;
 esac
