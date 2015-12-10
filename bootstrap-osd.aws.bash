@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# User creation
 echo "boostrap : user creation"
 useradd -d /home/ceph -s /bin/bash -m ceph
 echo "ceph:ceph" | chpasswd
@@ -17,6 +18,7 @@ https_proxy=http://10.100.1.200:3128" > /root/.wgetrc
 
 chown -R ceph:ceph /home/ceph/
 
+# Software installation
 echo "boostrap : package installation"
 export http_proxy=http://10.100.1.200:3128
 echo "http_proxy=http://10.100.1.200:3128" >> /etc/environment
@@ -25,6 +27,7 @@ apt-get update && apt-get install -y ntp ntpdate ntp-doc xfsprogs
 /etc/init.d/apparmor teardown
 apt-get remove -y apparmor
 
+# Disk configuration
 echo "boostrap : disk configuration"
 parted -s /dev/xvdb mklabel gpt
 parted -s /dev/xvdb mkpart primary 0% 50%
