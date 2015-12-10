@@ -1,4 +1,7 @@
 #!/bin/bash
+
+export http_proxy=http://10.100.1.200:3128
+
 useradd -d /home/cephuser -s /bin/bash -m cephuser
 echo "cephuser:cephuser" | chpasswd
 echo "cephuser ALL = (root) NOPASSWD:ALL" | tee /etc/sudoers.d/cephuser
@@ -78,6 +81,7 @@ apt-get update && apt-get install -y ntp ntpdate ntp-doc xfsprogs git python-vir
 apt-get remove -y apparmor
 
 cd /home/cepuser/
+git config --global http.proxy $http_proxy
 git clone https://github.com/ceph/ceph-deploy.git
 cd ceph-deploy
 ./bootstrap
