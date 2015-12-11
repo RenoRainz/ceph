@@ -1,3 +1,5 @@
 .vagrant
 cluster_conf
 *.cap
+*.gz
+*.tar
