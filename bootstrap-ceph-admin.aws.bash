@@ -75,6 +75,8 @@ hostname ceph-admin
 wget -q -O- 'https://download.ceph.com/keys/release.asc' | sudo apt-key add -
 echo deb http://download.ceph.com/debian-hammer/ $(lsb_release -sc) main | sudo tee /etc/apt/sources.list.d/ceph.list
 export http_proxy=http://10.100.1.200:3128
+touch /etc/apt/apt.conf
+echo 'Acquire::http::Proxy "http://yourproxyaddress:proxyport";'
 apt-get update && apt-get install -y ntp ntpdate ntp-doc xfsprogs git python-virtualenv
 /etc/init.d/apparmor stop
 /etc/init.d/apparmor teardown

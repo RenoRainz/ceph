@@ -23,7 +23,7 @@ echo "boostrap : package installation"
 export http_proxy=http://10.100.1.200:3128
 echo "http_proxy=http://10.100.1.200:3128" >> /etc/environment
 touch /etc/apt/apt.conf
-Acquire::http::Proxy "http://yourproxyaddress:proxyport"; >/etc/apt/apt.conf
+echo 'Acquire::http::Proxy "http://yourproxyaddress:proxyport";' >/etc/apt/apt.conf
 apt-get update && apt-get install -y ntp ntpdate ntp-doc xfsprogs
 /etc/init.d/apparmor stop
 /etc/init.d/apparmor teardown
