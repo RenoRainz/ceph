@@ -3,3 +3,4 @@ cluster_conf
 *.cap
 *.gz
 *.tar
+/create-cluster
