@@ -29,6 +29,21 @@ apt-get update && apt-get install -y ntp ntpdate ntp-doc xfsprogs
 /etc/init.d/apparmor teardown
 apt-get remove -y apparmor
 
+# Ntp config
+echo "bootstrap :ntp configuration."
+echo "driftfile /var/lib/ntp/ntp.drift
+statistics loopstats peerstats clockstats
+filegen loopstats file loopstats type day enable
+filegen peerstats file peerstats type day enable
+filegen clockstats file clockstats type day enable
+server 10.100.1.200
+restrict -4 default kod notrap nomodify nopeer noquery
+restrict -6 default kod notrap nomodify nopeer noquery
+restrict 127.0.0.1
+restrict ::1" >/etc/ntp.conf
+service ntp restart
+
+
 # Disk configuration
 echo "boostrap : disk configuration"
 parted -s /dev/xvdb mklabel gpt
