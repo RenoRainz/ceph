@@ -17,7 +17,7 @@ Vagrant.configure(2) do |config|
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "ubuntu/trusty64"
   config.vm.box_check_update = false
-  num_osd = 3
+  num_osd = 4
   disk_by_osd = 3
   osd_disk_size = 8
   osd_gui = false
