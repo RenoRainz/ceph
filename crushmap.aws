@@ -52,8 +52,7 @@ host ceph-osd-3 {
         item osd.5 weight 1.00
 }
 
-
-rack rack1 {
+datacenter eu-west-1a {
         id -5
         alg straw
         hash 0
@@ -61,19 +60,27 @@ rack rack1 {
         item ceph-osd-3 weight 2.00
 }
 
-rack rack2 {
-        id -6
+datacenter eu-west-1b {
+        id -5
         alg straw
         hash 0
         item ceph-osd-2 weight 2.00
+}
+
+region eu-west-1 {
+        id -7
+        alg straw
+        hash 0
+        item eu-west-1a 4.00
+        item eu-west-1b 4.00
 }
 
 root default {
         id -7
         alg straw
         hash 0
-        item rack1 weight 2.00
-        item rack2 weight 2.00
+        item eu-west-1 weight 8.00
+
 }
 
 # rules
