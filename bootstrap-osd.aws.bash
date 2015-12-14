@@ -43,7 +43,6 @@ restrict 127.0.0.1
 restrict ::1" >/etc/ntp.conf
 service ntp restart
 
-
 # Disk configuration
 echo "boostrap : disk configuration"
 parted -s /dev/xvdb mklabel gpt
@@ -52,11 +51,11 @@ parted -s /dev/xvdb mkpart primary 51% 100%
 
 parted -s /dev/xvdc mklabel gpt
 parted -s /dev/xvdc mkpart primary xfs 0% 100%
-mkfs.xfs /dev/xvdc1
+mkfs.xfs -f /dev/xvdc1
 
 parted -s /dev/xvdd mklabel gpt
 parted -s /dev/xvdd mkpart primary xfs 0% 100%
-mkfs.xfs /dev/xvdd1
+mkfs.xfs -f /dev/xvdd1
 
 mkdir -p /var/local/osd0
 mkdir -p /var/local/osd1
