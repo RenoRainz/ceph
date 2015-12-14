@@ -61,7 +61,7 @@ datacenter eu-west-1a {
 }
 
 datacenter eu-west-1b {
-        id -5
+        id -6
         alg straw
         hash 0
         item ceph-osd-2 weight 2.00
@@ -76,7 +76,7 @@ region eu-west-1 {
 }
 
 root default {
-        id -7
+        id -8
         alg straw
         hash 0
         item eu-west-1 weight 8.00
