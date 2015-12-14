@@ -71,16 +71,15 @@ region eu-west-1 {
         id -7
         alg straw
         hash 0
-        item eu-west-1a 4.00
-        item eu-west-1b 4.00
+        item eu-west-1a weight 2.00
+        item eu-west-1a weight 2.00
 }
 
 root default {
         id -8
         alg straw
         hash 0
-        item eu-west-1 weight 8.00
-
+        item eu-west-1 weight 4.00
 }
 
 # rules
