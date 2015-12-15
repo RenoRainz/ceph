@@ -72,7 +72,7 @@ region eu-west-1 {
         alg straw
         hash 0
         item eu-west-1a weight 2.00
-        item eu-west-1a weight 2.00
+        item eu-west-1b weight 2.00
 }
 
 root default {
@@ -89,6 +89,7 @@ rule replicated_ruleset {
         min_size 1
         max_size 10
         step take default
+        step choose firstn 0 type datacenter
         step chooseleaf firstn 0 type host
         step emit
 }
