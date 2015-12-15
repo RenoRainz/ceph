@@ -98,6 +98,16 @@ netmask 255.255.255.0
 " >/etc/network/interfaces.d/eth1.cfg
     ifup eth1
     ;;
+    "10.200.1.14/24")
+      hostname ceph-osd-4
+      echo "ceph-osd-4" > /etc/hostname
+      echo "auto eth1
+  iface eth1 inet static
+  address 10.200.3.14
+  netmask 255.255.255.0
+  " >/etc/network/interfaces.d/eth1.cfg
+      ifup eth1
+      ;;
 esac
 
 touch /tmp/bootstrap.done
