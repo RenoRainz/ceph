@@ -90,6 +90,6 @@ rule replicated_ruleset {
         max_size 10
         step take default
         step choose firstn 0 type datacenter
-        step chooseleaf firstn 0 type host
+        step chooseleaf firstn 1 type host
         step emit
 }
