@@ -59,7 +59,8 @@ https_proxy=http://10.100.1.200:3128" > /home/cephuser/.wgetrc
 echo "http_proxy=http://10.100.1.200:3128
 https_proxy=http://10.100.1.200:3128" > /root/.wgetrc
 
-echo "10.200.1.10 ceph-admin.internal ceph-admin
+echo "10.200.1.9 ceph-client.internal ceph-client
+10.200.1.10 ceph-admin.internal ceph-admin
 10.200.1.14 ceph-client.internal ceph-client
 10.200.1.11 ceph-osd-1.internal ceph-osd-1
 10.200.1.12 ceph-osd-2.internal ceph-osd-2
