@@ -69,7 +69,7 @@ apt-get update && apt-get install -y ntp ntpdate ntp-doc xfsprogs git python-vir
 /etc/init.d/apparmor teardown
 apt-get remove -y apparmor
 
-cd /home/cepuser/
+cd /home/cephuser/
 git clone https://github.com/ceph/ceph-deploy.git
 cd ceph-deploy
 ./bootstrap
