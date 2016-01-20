@@ -1,0 +1,12 @@
+../ceph-deploy new ceph-osd-1 ceph-osd-2 ceph-osd-3
+../ceph-deploy install --release hammer ceph-osd-1 ceph-osd-2 ceph-osd-3
+../ceph-deploy mon create-initial
+../ceph-deploy osd prepare ceph-osd-1:/var/local/osd0:/dev/mapper/journal0 ceph-osd-1:/var/local/osd1:/dev/mapper/journal1
+../ceph-deploy osd prepare ceph-osd-2:/var/local/osd0:/dev/mapper/journal0 ceph-osd-2:/var/local/osd1:/dev/mapper/journal1
+../ceph-deploy osd prepare ceph-osd-3:/var/local/osd0:/dev/mapper/journal0 ceph-osd-3:/var/local/osd1:/dev/mapper/journal1
+../ceph-deploy osd prepare ceph-osd-4:/var/local/osd0:/dev/mapper/journal0 ceph-osd-4:/var/local/osd1:/dev/mapper/journal1
+../ceph-deploy osd activate ceph-osd-1:/var/local/osd0:/dev/mapper/journal0 ceph-osd-1:/var/local/osd1:/dev/mapper/journal1
+../ceph-deploy osd activate ceph-osd-2:/var/local/osd0:/dev/mapper/journal0 ceph-osd-2:/var/local/osd1:/dev/mapper/journal1
+../ceph-deploy osd activate ceph-osd-3:/var/local/osd0:/dev/mapper/journal0 ceph-osd-3:/var/local/osd1:/dev/mapper/journal1
+../ceph-deploy osd activate ceph-osd-4:/var/local/osd0:/dev/mapper/journal0 ceph-osd-4:/var/local/osd1:/dev/mapper/journal1
+../ceph-deploy admin ceph-osd-1 ceph-osd-2 ceph-osd-3
