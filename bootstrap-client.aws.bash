@@ -25,7 +25,10 @@ export http_proxy=http://10.100.1.200:3128
 echo "http_proxy=http://10.100.1.200:3128" >> /etc/environment
 touch /etc/apt/apt.conf
 echo 'Acquire::http::Proxy "http://10.100.1.200:3128";' >/etc/apt/apt.conf
+wget -q -O- 'https://git.ceph.com/git/?p=ceph.git;a=blob_plain;f=keys/release.asc' | sudo apt-key add -
+apt-add-repository 'deb http://download.ceph.com/debian-hammer/ trusty main'
 apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+apt-add-repository 'deb https://apt.dockerproject.org/repo ubuntu-trusty main'
 apt-get update && apt-get install -y ntp ntpdate ntp-doc xfsprogs docker-engine=1.9.1-0~trusty librados-dev=0.94.5-1trusty librbd-dev=0.94.5-1trusty golang ceph-common=0.94.5-1trusty gcc
 
 /etc/init.d/apparmor stop
