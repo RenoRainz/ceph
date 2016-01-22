@@ -17,9 +17,9 @@ Vagrant.configure(2) do |config|
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "ubuntu/trusty64"
   config.vm.box_check_update = false
-  num_osd = 4
+  num_osd = 3
   disk_by_osd = 3
-  osd_disk_size = 8
+  osd_disk_size = 16
   osd_gui = false
   osd_memory = 1024
   osd_cpus = 1
@@ -69,7 +69,7 @@ Vagrant.configure(2) do |config|
 
          # Add OSD disks
          (1..disk_by_osd).each do |d|
-           file_to_disk = "/home/renaud/VirtualBox VMs/ceph-osd-#{i}/osd-#{d}.vmdk"
+           file_to_disk = "/Users/rhager/VirtualBox VMs/ceph-osd-#{i}/osd-#{d}.vmdk"
            config.vm.provider "virtualbox" do | vb |
               unless File.exist?(file_to_disk)
                 vb.customize ['createhd', '--filename', file_to_disk, '--size', osd_disk_size * 1024]
@@ -79,13 +79,13 @@ Vagrant.configure(2) do |config|
          end
 
          # /etc/hosts configuration
-         osd.vm.provision :hosts do |provisioner|
-           provisioner.add_host '172.16.1.100', ['ceph-admin.internal', 'ceph-admin']
-           provisioner.add_host "172.16.1.#{i+110}", ["ceph-osd-#{i}.internal", "ceph-osd-#{i}"]
-         end
+         #osd.vm.provision :hosts do |provisioner|
+          #  provisioner.add_host '172.16.1.100', ['ceph-admin.internal', 'ceph-admin']
+          # provisioner.add_host "172.16.1.#{i+110}", ["ceph-osd-#{i}.internal", "ceph-osd-#{i}"]
+         #end
 
          # Bootstrapping
-         config.vm.provision :shell, path: "bootstrap.bash"
+         config.vm.provision :shell, path: "bootstrap-osd.bash"
 
      end
   end
