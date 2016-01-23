@@ -40,17 +40,29 @@ Vagrant.configure(2) do |config|
   end
 
   # Ceph client definition
-  config.vm.define "ceph-client" do |admin|
-      admin.vm.hostname = "ceph-client"
-      admin.vm.network :private_network, ip: "172.16.1.101", virtualbox__intnet: "front_network"
+  config.vm.define "ceph-client" do |client|
+      client.vm.hostname = "ceph-client"
+      client.vm.network :private_network, ip: "172.16.1.101", virtualbox__intnet: "front_network"
 
-      admin.vm.provider :virtualbox do |vb|
+      client.vm.provider :virtualbox do |vb|
         vb.memory = 512
         vb.cpus = 1
       end
 
       # Bootstrapping
       config.vm.provision :shell, path: "bootstrap-client.bash"
+
+  end
+
+  # Calamari host
+  config.vm.define "ceph-calamari" do |calamari|
+    calamari.vm.hostname = "ceph-calamari"
+      calamari.vm.network :private_network, ip: "172.16.1.102", virtualbox__intnet: "front_network"
+
+    calamari.vm.provider :virtualbox do |vb|
+      vb.memory = 1024
+      vb.cpus =1
+    end
 
   end
 
