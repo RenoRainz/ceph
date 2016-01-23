@@ -28,6 +28,7 @@ Vagrant.configure(2) do |config|
   config.vm.define "ceph-admin" do |admin|
       admin.vm.hostname = "ceph-admin"
       admin.vm.network :private_network, ip: "172.16.1.100", virtualbox__intnet: "front_network"
+      admin.vm.network "forwarded_port", guest: 80, host: 8081
 
       admin.vm.provider :virtualbox do |vb|
         vb.memory = 512
@@ -58,11 +59,15 @@ Vagrant.configure(2) do |config|
   config.vm.define "ceph-calamari" do |calamari|
     calamari.vm.hostname = "ceph-calamari"
       calamari.vm.network :private_network, ip: "172.16.1.102", virtualbox__intnet: "front_network"
+      calamari.vm.network "forwarded_port", guest: 80, host: 8080
 
     calamari.vm.provider :virtualbox do |vb|
-      vb.memory = 1024
+      vb.memory = 2048
       vb.cpus =1
     end
+
+    #Bootstrapping
+    config.vm.provision :shell, path: "bootstrap-calamari.bash"
 
   end
 

@@ -22,6 +22,14 @@ apt-get update && apt-get install -y ntp ntpdate ntp-doc xfsprogs
 /etc/init.d/apparmor teardown
 apt-get remove -y apparmor
 
+# Installation  repo Salt
+add-apt-repository ppa:saltstack/salt2014-7 -y
+# Installation repo calamari
+echo "deb http://download.ceph.com/calamari/1.3.1/ubuntu/trusty/ trusty main" >/etc/apt/sources.list.d/calamari.list
+# Installation salt-master and minion and dependencies
+apt-get update -y   --allow-unauthenticated && apt-get install --allow-unauthenticated -y git python-virtualenv
+
+
 parted -s /dev/sdb mklabel gpt
 parted -s /dev/sdb mkpart primary 0% 50%
 parted -s /dev/sdb mkpart primary 51% 100%
