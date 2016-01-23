@@ -15,6 +15,20 @@ chown -R ceph:ceph /home/ceph/
 dd if=/dev/urandom of=/root/keyfile bs=1024 count=4
 chmod 0400 /root/keyfile
 
+echo "127.0.0.1 localhost
+172.16.1.100 ceph-admin.internal ceph-admin
+172.16.1.101 ceph-client.internal ceph-client
+172.16.1.102 ceph-calamari.internal ceph-calamari
+172.16.1.111 ceph-osd-1.internal ceph-osd-1
+172.16.1.112 ceph-osd-2.internal ceph-osd-2
+172.16.1.113 ceph-osd-3.internal ceph-osd-3
+172.16.1.114 ceph-osd-4.internal ceph-osd-4
+172.16.2.111 ceph-osd-1.storage
+172.16.2.112 ceph-osd-2.storage
+172.16.2.113 ceph-osd-3.storage
+172.16.2.114 ceph-osd-4.storage
+" >/etc/hosts
+
 wget -q -O- 'https://git.ceph.com/git/?p=ceph.git;a=blob_plain;f=keys/release.asc' | sudo apt-key add -
 apt-add-repository 'deb http://download.ceph.com/debian-hammer/ trusty main'
 apt-get update && apt-get install -y ntp ntpdate ntp-doc xfsprogs
