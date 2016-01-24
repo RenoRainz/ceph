@@ -31,7 +31,7 @@ echo "127.0.0.1 localhost
 
 wget -q -O- 'https://git.ceph.com/git/?p=ceph.git;a=blob_plain;f=keys/release.asc' | sudo apt-key add -
 apt-add-repository 'deb http://download.ceph.com/debian-hammer/ trusty main'
-apt-get update && apt-get install -y ntp ntpdate ntp-doc xfsprogs
+apt-get update && apt-get install -y ntp ntpdate ntp-doc xfsprogs nmon
 /etc/init.d/apparmor stop
 /etc/init.d/apparmor teardown
 apt-get remove -y apparmor
