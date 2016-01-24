@@ -74,9 +74,45 @@ apt-get update && apt-get install -y ntp ntpdate ntp-doc xfsprogs git python-vir
 /etc/init.d/apparmor teardown
 apt-get remove -y apparmor
 
+# Setup ceph-deploy command
 cd /home/cephuser/
 git clone https://github.com/ceph/ceph-deploy.git
 cd ceph-deploy
 ./bootstrap
 mkdir cluster_conf
 chown -R cephuser:cephuser /home/cephuser
+
+# Setup ceph cluster
+cd cluster_conf
+
+
+echo "#!/bin/bash
+echo 'Deploy ceph.'
+../ceph-deploy new ceph-osd-1 ceph-osd-2 ceph-osd-3
+
+echo 'public network = 172.16.1.0/24
+cluster network = 172.16.2.0/24
+osd pool default size = 2
+osd pool default min size = 1
+osd pool default pg num = 128
+osd pool default pgp num = 128
+osd crush chooseleaf type = 1
+' >> ceph.conf
+sleep 5
+
+echo 'Installation of ceph packages on osd node'
+../ceph-deploy install --release hammer ceph-osd-1 ceph-osd-2 ceph-osd-3
+sleep 5
+
+echo 'Monitors initialisation.'
+../ceph-deploy mon create-initial
+
+echo 'Setup OSD.'
+../ceph-deploy osd prepare ceph-osd-1:/var/local/osd0:/dev/sdb1 ceph-osd-1:/var/local/osd1:/dev/sdb2
+../ceph-deploy osd prepare ceph-osd-2:/var/local/osd0:/dev/sdb1 ceph-osd-2:/var/local/osd1:/dev/sdb2
+../ceph-deploy osd prepare ceph-osd-3:/var/local/osd0:/dev/sdb1 ceph-osd-3:/var/local/osd1:/dev/sdb2
+
+../ceph-deploy osd activate ceph-osd-1:/var/local/osd0:/dev/sdb1 ceph-osd-1:/var/local/osd1:/dev/sdb2
+../ceph-deploy osd activate ceph-osd-2:/var/local/osd0:/dev/sdb1 ceph-osd-2:/var/local/osd1:/dev/sdb2
+../ceph-deploy osd activate ceph-osd-3:/var/local/osd0:/dev/sdb1 ceph-osd-3:/var/local/osd1:/dev/sdb2
+" >setup.bash
