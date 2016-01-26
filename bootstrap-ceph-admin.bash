@@ -115,4 +115,7 @@ echo 'Setup OSD.'
 ../ceph-deploy osd activate ceph-osd-1:/var/local/osd0:/dev/sdb1 ceph-osd-1:/var/local/osd1:/dev/sdb2
 ../ceph-deploy osd activate ceph-osd-2:/var/local/osd0:/dev/sdb1 ceph-osd-2:/var/local/osd1:/dev/sdb2
 ../ceph-deploy osd activate ceph-osd-3:/var/local/osd0:/dev/sdb1 ceph-osd-3:/var/local/osd1:/dev/sdb2
+
+echo 'Deploying ceph keys.'
+../ceph-deploy admin ceph-osd-1 ceph-osd-2 ceph-osd-3
 " >setup.bash
